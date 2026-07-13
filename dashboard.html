@@ -1,0 +1,181 @@
+
+<!-- Déclaration HTML5 -->
+<!-- إعلان HTML5 -->
+<!DOCTYPE html>
+
+<!-- Langue anglaise, sens gauche à droite -->
+<!-- اللغة الإنجليزية، الاتجاه من اليسار لليمين -->
+<html lang="en" dir="ltr" data-theme="dark">
+
+<head>
+
+  <!-- Encodage des caractères -->
+  <!-- ترميز الأحرف -->
+  <meta charset="UTF-8">
+
+  <!-- Adaptation aux écrans mobiles -->
+  <!-- التكيف مع شاشات الهاتف -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Titre de la page -->
+  <!-- عنوان الصفحة -->
+  <title>Opportune — Dashboard</title>
+
+  <!-- Lien vers la feuille de style -->
+  <!-- رابط ملف التصميم -->
+  <link rel="stylesheet" href="opportune.css">
+
+  <!-- Bibliothèque des drapeaux -->
+  <!-- مكتبة الأعلام -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+
+  <!-- Polices Google -->
+  <!-- خطوط Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Barre de navigation dashboard -->
+  <!-- شريط التنقل للوحة التحكم -->
+  <nav>
+
+    <!-- Logo -->
+    <!-- الشعار -->
+    <div class="logo">
+      <a href="opportune.html">Oppor<span>tune</span></a>
+    </div>
+
+    <!-- Liens dashboard -->
+    <!-- روابط لوحة التحكم -->
+    <ul class="nav-links">
+      <li><a href="#opportunities">Opportunities</a></li>
+      <li><a href="cv_builder.html">My CV</a></li>
+      <li><a href="#applications">Applications</a></li>
+    </ul>
+
+    <!-- Actions -->
+    <!-- الإجراءات -->
+    <div class="nav-actions">
+
+      <!-- Sélecteur de langue -->
+      <!-- مبدل اللغة -->
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="ar">Ar</button>
+        <button class="lang-btn" data-lang="fr">Fr</button>
+        <button class="lang-btn active" data-lang="en">En</button>
+      </div>
+
+      <!-- Nom de l'utilisateur -->
+      <!-- اسم المستخدم -->
+      <div class="user-menu">
+        <span class="user-name">👤 Chadiya</span>
+        <button class="btn-logout">Logout</button>
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- Section principale dashboard -->
+  <!-- القسم الرئيسي للوحة التحكم -->
+  <section id="dashboard">
+
+    <!-- En-tête dashboard -->
+    <!-- رأس لوحة التحكم -->
+    <div class="dashboard-header">
+      <div>
+        <h1>Welcome back, <span>Chadiya</span> 👋</h1>
+        <p>Here are your latest opportunities</p>
+      </div>
+      <button class="btn-primary" onclick="window.location.href='edit-profile.html'">
+        Edit Profile
+      </button>
+    </div>
+
+    <!-- Statistiques rapides -->
+    <!-- إحصاءات سريعة -->
+    <div class="dash-stats">
+
+      <!-- Stat 1 — Opportunités trouvées -->
+      <!-- الإحصاء 1 — الفرص المجودة -->
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">🔍</div>
+        <div class="dash-stat-num" id="statOpportunities">–</div>
+        <div class="dash-stat-label">New Opportunities</div>
+      </div>
+
+      <!-- Stat 2 — CV envoyés -->
+      <!-- الإحصاء 2 — CV المرسلة -->
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">📄</div>
+        <div class="dash-stat-num" id="statCvSent">–</div>
+        <div class="dash-stat-label">CV Sent</div>
+      </div>
+
+      <!-- Stat 3 — Réponses reçues -->
+      <!-- الإحصاء 3 — الردود المستقبلة -->
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">📩</div>
+        <div class="dash-stat-num" id="statReplies">–</div>
+        <div class="dash-stat-label">Replies Received</div>
+      </div>
+
+      <!-- Stat 4 — Taux de réussite -->
+      <!-- الإحصاء 4 — نسبة النجاح -->
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">⭐</div>
+        <div class="dash-stat-num" id="statSuccessRate">–</div>
+        <div class="dash-stat-label">Success Rate</div>
+      </div>
+
+    </div>
+
+    <!-- Section opportunités -->
+    <!-- قسم الفرص -->
+    <div class="dash-section" id="opportunities">
+
+      <!-- Titre de la section -->
+      <!-- عنوان القسم -->
+      <div class="dash-section-header">
+        <h2>Latest <span>Opportunities</span></h2>
+        <p>Found today for your profile</p>
+      </div>
+
+      <!-- Liste des opportunités — remplie dynamiquement par dashboard.js -->
+      <!-- قائمة الفرص — كتعمر ديناميكيا من dashboard.js -->
+      <div class="opportunities-grid" id="opportunitiesGrid">
+        <p id="opportunitiesLoading">Loading opportunities…</p>
+      </div>
+
+    </div>
+
+    <!-- Section applications — corrige le lien mort #applications -->
+    <!-- قسم الطلبات — يصلح الرابط الميت #applications -->
+    <div class="dash-section" id="applications">
+
+      <div class="dash-section-header">
+        <h2>My <span>Applications</span></h2>
+        <p>Track the opportunities you've applied to</p>
+      </div>
+
+      <!-- Contenu rempli dynamiquement par dashboard.js -->
+      <!-- المحتوى كيتعمر ديناميكيا من dashboard.js -->
+      <div id="applicationsContainer">
+        <div class="dash-empty">
+          <div class="dash-empty-icon">📭</div>
+          <p>Loading your applications…</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+  <script src="dashboard.js"></script>
+
+</body>
+</html>

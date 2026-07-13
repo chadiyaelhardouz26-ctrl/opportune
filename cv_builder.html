@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Opportune CV Builder - Create professional ATS-friendly resumes with AI-powered assistance">
+<title>Opportune &mdash; CV Builder</title>
+
+<!-- Google Fonts: Poppins + Syne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- QRCode.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- CV Builder Styles -->
+<link rel="stylesheet" href="cv-builder.css">
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- TOP NAVBAR                                                       -->
+<!-- ================================================================ -->
+<header class="cvb-navbar">
+  <div class="cvb-navbar-left">
+    <a href="dashboard.html" class="cvb-logo">Oppor<span>tune</span></a>
+    <span class="cvb-divider"></span>
+    <span class="cvb-page-title"><i class="fa-solid fa-file-pen"></i> CV Builder</span>
+  </div>
+
+  <div class="cvb-navbar-right">
+    <button id="themeToggle" class="cvb-icon-btn" title="Toggle dark / light mode" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+    <button id="deleteCvBtn" class="cvb-icon-btn" title="Delete this CV" aria-label="Delete CV">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+    <button id="saveCvBtn" class="cvb-btn cvb-btn-ghost">
+      <i class="fa-solid fa-cloud-arrow-up"></i> <span>Save</span>
+    </button>
+    <button id="downloadPdfBtn" class="cvb-btn cvb-btn-primary">
+      <i class="fa-solid fa-file-arrow-down"></i> <span>Download PDF</span>
+    </button>
+  </div>
+</header>
+
+<!-- ================================================================ -->
+<!-- TOAST NOTIFICATION                                               -->
+<!-- ================================================================ -->
+<div id="toast" class="cvb-toast" role="status" aria-live="polite"></div>
+
+<!-- ================================================================ -->
+<!-- AUTO-SAVE INDICATOR                                              -->
+<!-- ================================================================ -->
+<div id="saveIndicator" class="cvb-save-indicator" aria-live="polite">
+  <span class="cvb-spinner" id="saveSpinner" style="display:none;"></span>
+  <i class="fa-solid fa-check" id="saveCheck" style="display:none; color: var(--brand-green-light);"></i>
+  <span id="saveText">Auto-save enabled</span>
+</div>
+
+<!-- ================================================================ -->
+<!-- MAIN LAYOUT: EDITOR + PREVIEW                                    -->
+<!-- ================================================================ -->
+<main class="cvb-layout">
+
+  <!-- ============================================================== -->
+  <!-- LEFT PANEL — EDITOR FORM                                       -->
+  <!-- ============================================================== -->
+  <section class="cvb-editor" id="cv-builder" aria-label="CV Editor">
+
+    <!-- ---------- Personal Information ---------- -->
+    <div class="cvb-card" id="card-personal">
+      <button class="cvb-card-head" data-toggle="personalBody" aria-expanded="true" aria-controls="personalBody">
+        <span><i class="fa-solid fa-user"></i> Personal Information</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="personalBody">
+
+        <div class="cvb-photo-upload" id="photoDropZone" role="button" tabindex="0" aria-label="Upload profile photo">
+          <div class="cvb-photo-preview" id="photoPreview">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <label class="cvb-upload-btn">
+            <i class="fa-solid fa-camera"></i> Upload Photo
+            <input type="file" id="photoInput" accept="image/*" hidden aria-label="Select photo file">
+          </label>
+          <p class="cvb-dropzone-hint"><i class="fa-solid fa-arrows-up-down-left-right"></i> or drag &amp; drop an image here</p>
+        </div>
+
+        <div class="cvb-grid-2">
+          <div class="cvb-field">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" placeholder="Chadiya" required aria-required="true">
+            <span class="cvb-field-error" id="firstName-error"></span>
+          </div>
+          <div class="cvb-field">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" placeholder="El Idrissi" required aria-required="true">
+            <span class="cvb-field-error" id="lastName-error"></span>
+          </div>
+        </div>
+
+        <div class="cvb-grid-2">
+          <div class="cvb-field">
+            <label for="jobTitle">Professional Title *</label>
+            <input type="text" id="jobTitle" placeholder="Full-Stack Developer" required aria-required="true">
+            <span class="cvb-field-error" id="jobTitle-error"></span>
+          </div>
+          <div class="cvb-field">
+            <label for="currentPosition">Current Position</label>
+            <input type="text" id="currentPosition" placeholder="Backend Developer @ TechMaroc">
+          </div>
+        </div>
+
+        <div class="cvb-grid-2">
+          <div class="cvb-field">
+            <label for="cvEmail">Email *</label>
+            <input type="email" id="cvEmail" placeholder="you@example.com" required aria-required="true">
+            <span class="cvb-field-error" id="cvEmail-error"></span>
+          </div>
+          <div class="cvb-field">
+            <label for="cvPhone">Phone</label>
+            <input type="tel" id="cvPhone" placeholder="+212 6 00 00 00 00">
+            <span class="cvb-field-error" id="cvPhone-error"></span>
+          </div>
+        </div>
+
+        <div class="cvb-grid-2">
+          <div class="cvb-field">
+            <label for="cvCity">City</label>
+            <input type="text" id="cvCity" placeholder="Casablanca">
+          </div>
+          <div class="cvb-field">
+            <label for="cvCountry">Country</label>
+            <input type="text" id="cvCountry" placeholder="Morocco">
+          </div>
+        </div>
+
+        <div class="cvb-grid-2">
+          <div class="cvb-field">
+            <label for="cvDob">Date of Birth</label>
+            <input type="date" id="cvDob">
+          </div>
+          <div class="cvb-field">
+            <label for="cvNationality">Nationality</label>
+            <input type="text" id="cvNationality" placeholder="Moroccan">
+          </div>
+        </div>
+
+        <div class="cvb-grid-2">
+          <div class="cvb-field">
+            <label for="cvMaritalStatus">Marital Status</label>
+            <select id="cvMaritalStatus">
+              <option value="">Select&hellip;</option>
+              <option value="Single">Single</option>
+              <option value="Married">Married</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
+              <option value="Not specified">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="cvb-field">
+            <label for="cvDrivingLicense">Driving License</label>
+            <input type="text" id="cvDrivingLicense" placeholder="Category B">
+          </div>
+        </div>
+
+        <div class="cvb-grid-3">
+          <div class="cvb-field">
+            <label for="cvLinkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</label>
+            <input type="url" id="cvLinkedin" placeholder="https://linkedin.com/in/...">
+            <span class="cvb-field-error" id="cvLinkedin-error"></span>
+          </div>
+          <div class="cvb-field">
+            <label for="cvGithub"><i class="fa-brands fa-github"></i> GitHub</label>
+            <input type="url" id="cvGithub" placeholder="https://github.com/...">
+            <span class="cvb-field-error" id="cvGithub-error"></span>
+          </div>
+          <div class="cvb-field">
+            <label for="cvWebsite"><i class="fa-solid fa-globe"></i> Website</label>
+            <input type="url" id="cvWebsite" placeholder="https://yoursite.com">
+            <span class="cvb-field-error" id="cvWebsite-error"></span>
+          </div>
+        </div>
+
+        <div class="cvb-field">
+          <label for="cvPortfolio"><i class="fa-solid fa-briefcase"></i> Portfolio URL (for QR Code)</label>
+          <input type="url" id="cvPortfolio" placeholder="https://yourportfolio.com">
+          <span class="cvb-field-error" id="cvPortfolio-error"></span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ---------- About Me ---------- -->
+    <div class="cvb-card" id="card-about">
+      <button class="cvb-card-head" data-toggle="aboutBody" aria-expanded="true" aria-controls="aboutBody">
+        <span><i class="fa-solid fa-circle-info"></i> About Me</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="aboutBody">
+        <div class="cvb-field">
+          <label for="cvAbout">Professional Summary</label>
+          <textarea id="cvAbout" rows="4" placeholder="A short, powerful summary of who you are and what you bring to the table..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Professional Profile ---------- -->
+    <div class="cvb-card" id="card-profile">
+      <button class="cvb-card-head" data-toggle="profileBody" aria-expanded="true" aria-controls="profileBody">
+        <span><i class="fa-solid fa-id-card"></i> Professional Profile</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="profileBody">
+        <div class="cvb-field">
+          <label for="cvProfile">Career Objective / Profile Statement</label>
+          <textarea id="cvProfile" rows="4" placeholder="Your career goals, professional positioning, what you're looking for next..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Education ---------- -->
+    <div class="cvb-card" id="card-education">
+      <button class="cvb-card-head" data-toggle="educationBody" aria-expanded="true" aria-controls="educationBody">
+        <span><i class="fa-solid fa-graduation-cap"></i> Education</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="educationBody">
+        <div id="educationList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="educationEmpty">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <p>No education entries yet. Click "Add Education" to get started.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addEducationBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Education
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Experience ---------- -->
+    <div class="cvb-card" id="card-experience">
+      <button class="cvb-card-head" data-toggle="experienceBody" aria-expanded="true" aria-controls="experienceBody">
+        <span><i class="fa-solid fa-briefcase"></i> Experience</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="experienceBody">
+        <div id="experienceList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="experienceEmpty">
+            <i class="fa-solid fa-briefcase"></i>
+            <p>No experience entries yet. Click "Add Experience" to get started.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addExperienceBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Experience
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Volunteer Experience ---------- -->
+    <div class="cvb-card" id="card-volunteer">
+      <button class="cvb-card-head" data-toggle="volunteerBody" aria-expanded="true" aria-controls="volunteerBody">
+        <span><i class="fa-solid fa-hands-holding-heart"></i> Volunteer Experience</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="volunteerBody">
+        <div id="volunteerList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="volunteerEmpty">
+            <i class="fa-solid fa-hands-holding-heart"></i>
+            <p>No volunteer entries yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addVolunteerBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Volunteer Experience
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Projects ---------- -->
+    <div class="cvb-card" id="card-projects">
+      <button class="cvb-card-head" data-toggle="projectsBody" aria-expanded="true" aria-controls="projectsBody">
+        <span><i class="fa-solid fa-diagram-project"></i> Projects</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="projectsBody">
+        <div id="projectsList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="projectsEmpty">
+            <i class="fa-solid fa-diagram-project"></i>
+            <p>No projects added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addProjectBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Project
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Certifications ---------- -->
+    <div class="cvb-card" id="card-certificates">
+      <button class="cvb-card-head" data-toggle="certificatesBody" aria-expanded="true" aria-controls="certificatesBody">
+        <span><i class="fa-solid fa-certificate"></i> Certifications</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="certificatesBody">
+        <div id="certificatesList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="certificatesEmpty">
+            <i class="fa-solid fa-certificate"></i>
+            <p>No certifications added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addCertificateBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Certification
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Publications ---------- -->
+    <div class="cvb-card" id="card-publications">
+      <button class="cvb-card-head" data-toggle="publicationsBody" aria-expanded="true" aria-controls="publicationsBody">
+        <span><i class="fa-solid fa-book-open"></i> Publications</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="publicationsBody">
+        <div id="publicationsList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="publicationsEmpty">
+            <i class="fa-solid fa-book-open"></i>
+            <p>No publications added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addPublicationBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Publication
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Awards ---------- -->
+    <div class="cvb-card" id="card-awards">
+      <button class="cvb-card-head" data-toggle="awardsBody" aria-expanded="true" aria-controls="awardsBody">
+        <span><i class="fa-solid fa-award"></i> Awards</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="awardsBody">
+        <div id="awardsList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="awardsEmpty">
+            <i class="fa-solid fa-award"></i>
+            <p>No awards added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addAwardBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Award
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Skills, Languages & Interests (Tags) ---------- -->
+    <div class="cvb-card" id="card-tags">
+      <button class="cvb-card-head" data-toggle="tagsBody" aria-expanded="true" aria-controls="tagsBody">
+        <span><i class="fa-solid fa-tags"></i> Skills, Languages &amp; Interests</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="tagsBody">
+
+        <div class="cvb-field">
+          <label for="technicalSkillsInput">Technical Skills</label>
+          <div class="cvb-tag-input" id="technicalSkillsInputWrap">
+            <div class="cvb-tags" id="technicalSkillsTags"></div>
+            <input type="text" id="technicalSkillsInput" placeholder="e.g. Node.js, MongoDB &mdash; press Enter" aria-label="Add technical skill">
+          </div>
+        </div>
+
+        <div class="cvb-field">
+          <label for="softSkillsInput">Soft Skills</label>
+          <div class="cvb-tag-input" id="softSkillsInputWrap">
+            <div class="cvb-tags" id="softSkillsTags"></div>
+            <input type="text" id="softSkillsInput" placeholder="e.g. Teamwork, Leadership &mdash; press Enter" aria-label="Add soft skill">
+          </div>
+        </div>
+
+        <div class="cvb-field">
+          <label for="skillsInput">General Skills</label>
+          <div class="cvb-tag-input" id="skillsInputWrap">
+            <div class="cvb-tags" id="skillsTags"></div>
+            <input type="text" id="skillsInput" placeholder="Type a skill and press Enter" aria-label="Add general skill">
+          </div>
+        </div>
+
+        <div class="cvb-field">
+          <label for="languagesInput">Languages</label>
+          <div class="cvb-tag-input" id="languagesInputWrap">
+            <div class="cvb-tags" id="languagesTags"></div>
+            <input type="text" id="languagesInput" placeholder="e.g. Arabic (Native), English (Fluent) &mdash; press Enter" aria-label="Add language">
+          </div>
+        </div>
+
+        <div class="cvb-field">
+          <label for="interestsInput">Interests</label>
+          <div class="cvb-tag-input" id="interestsInputWrap">
+            <div class="cvb-tags" id="interestsTags"></div>
+            <input type="text" id="interestsInput" placeholder="Type an interest and press Enter" aria-label="Add interest">
+          </div>
+        </div>
+
+        <div class="cvb-field">
+          <label for="hobbiesInput">Hobbies</label>
+          <div class="cvb-tag-input" id="hobbiesInputWrap">
+            <div class="cvb-tags" id="hobbiesTags"></div>
+            <input type="text" id="hobbiesInput" placeholder="Type a hobby and press Enter" aria-label="Add hobby">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ---------- Achievements ---------- -->
+    <div class="cvb-card" id="card-achievements">
+      <button class="cvb-card-head" data-toggle="achievementsBody" aria-expanded="true" aria-controls="achievementsBody">
+        <span><i class="fa-solid fa-trophy"></i> Achievements</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="achievementsBody">
+        <div id="achievementsList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="achievementsEmpty">
+            <i class="fa-solid fa-trophy"></i>
+            <p>No achievements added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addAchievementBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Achievement
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- References ---------- -->
+    <div class="cvb-card" id="card-references">
+      <button class="cvb-card-head" data-toggle="referencesBody" aria-expanded="true" aria-controls="referencesBody">
+        <span><i class="fa-solid fa-address-book"></i> References</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="referencesBody">
+        <div id="referencesList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="referencesEmpty">
+            <i class="fa-solid fa-address-book"></i>
+            <p>No references added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addReferenceBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Reference
+        </button>
+      </div>
+    </div>
+
+    <!-- ---------- Custom Sections ---------- -->
+    <div class="cvb-card" id="card-custom">
+      <button class="cvb-card-head" data-toggle="customBody" aria-expanded="true" aria-controls="customBody">
+        <span><i class="fa-solid fa-layer-group"></i> Custom Sections</span>
+        <i class="fa-solid fa-chevron-down cvb-chevron"></i>
+      </button>
+      <div class="cvb-card-body" id="customBody">
+        <p class="cvb-hint-text">Add any extra section not covered above (e.g. Conferences, Patents, Military Service&hellip;).</p>
+        <div id="customSectionsList" class="cvb-repeater-list">
+          <div class="cvb-empty-state" id="customEmpty">
+            <i class="fa-solid fa-layer-group"></i>
+            <p>No custom sections added yet.</p>
+          </div>
+        </div>
+        <button class="cvb-add-btn" id="addCustomSectionBtn" type="button">
+          <i class="fa-solid fa-plus"></i> Add Custom Section
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="cvb-bottom-actions">
+      <button id="saveCvBtnBottom" class="cvb-btn cvb-btn-ghost cvb-btn-full" type="button">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Save CV
+      </button>
+      <button id="downloadPdfBtnBottom" class="cvb-btn cvb-btn-primary cvb-btn-full" type="button">
+        <i class="fa-solid fa-file-arrow-down"></i> Download PDF
+      </button>
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- RIGHT PANEL — LIVE PREVIEW                                     -->
+  <!-- ============================================================== -->
+  <section class="cvb-preview-wrap" aria-label="CV Preview">
+    <div class="cvb-preview-toolbar">
+      <span><span class="cvb-live-dot"></span> Live Preview</span>
+      <div class="cvb-layout-toggle" role="group" aria-label="Preview layout">
+        <button class="active" data-layout="two-column" title="Two-column layout" aria-label="Two column layout">2-Column</button>
+        <button data-layout="classic" title="Classic single-column layout" aria-label="Classic layout">Classic</button>
+      </div>
+    </div>
+
+    <div class="cvb-preview-scroll">
+      <div id="cvPreview" class="cv-resume">
+
+        <!-- Resume Header -->
+        <div class="cv-resume-header">
+          <div class="cv-resume-photo" id="previewPhoto">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="cv-resume-headtext">
+            <h1 id="previewName">Your Name</h1>
+            <h2 id="previewTitle">Your Professional Title</h2>
+            <div class="cv-resume-contacts" id="previewContacts"></div>
+          </div>
+          <div class="cv-resume-qrcode" id="previewQRCode" title="QR code linking to your portfolio / LinkedIn">
+            <i class="fa-solid fa-qrcode"></i>
+          </div>
+        </div>
+
+        <!-- Resume Body -->
+        <div class="cv-resume-body">
+
+          <!-- Left Column -->
+          <div class="cv-resume-col cv-resume-col-left">
+
+            <div class="cv-resume-section" id="previewAboutSection" style="display:none;">
+              <h3><i class="fa-solid fa-circle-info"></i> About Me</h3>
+              <p id="previewAbout"></p>
+            </div>
+
+            <div class="cv-resume-section" id="previewProfileSection" style="display:none;">
+              <h3><i class="fa-solid fa-id-card"></i> Professional Profile</h3>
+              <p id="previewProfile"></p>
+            </div>
+
+            <div class="cv-resume-section" id="previewTechnicalSkillsSection" style="display:none;">
+              <h3><i class="fa-solid fa-microchip"></i> Technical Skills</h3>
+              <div class="cv-resume-tags" id="previewTechnicalSkills"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewSoftSkillsSection" style="display:none;">
+              <h3><i class="fa-solid fa-people-arrows"></i> Soft Skills</h3>
+              <div class="cv-resume-tags" id="previewSoftSkills"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewSkillsSection" style="display:none;">
+              <h3><i class="fa-solid fa-bolt"></i> Skills</h3>
+              <div class="cv-resume-tags" id="previewSkills"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewLanguagesSection" style="display:none;">
+              <h3><i class="fa-solid fa-language"></i> Languages</h3>
+              <div class="cv-resume-tags" id="previewLanguages"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewInterestsSection" style="display:none;">
+              <h3><i class="fa-solid fa-heart"></i> Interests</h3>
+              <div class="cv-resume-tags" id="previewInterests"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewHobbiesSection" style="display:none;">
+              <h3><i class="fa-solid fa-face-smile"></i> Hobbies</h3>
+              <div class="cv-resume-tags" id="previewHobbies"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewPersonalDetailsSection" style="display:none;">
+              <h3><i class="fa-solid fa-id-badge"></i> Personal Details</h3>
+              <div class="cv-resume-details-list" id="previewPersonalDetails"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewReferencesSection" style="display:none;">
+              <h3><i class="fa-solid fa-address-book"></i> References</h3>
+              <div id="previewReferences"></div>
+            </div>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="cv-resume-col cv-resume-col-right">
+
+            <div class="cv-resume-section" id="previewExperienceSection" style="display:none;">
+              <h3><i class="fa-solid fa-briefcase"></i> Experience</h3>
+              <div id="previewExperience"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewVolunteerSection" style="display:none;">
+              <h3><i class="fa-solid fa-hands-holding-heart"></i> Volunteer Experience</h3>
+              <div id="previewVolunteer"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewEducationSection" style="display:none;">
+              <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+              <div id="previewEducation"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewProjectsSection" style="display:none;">
+              <h3><i class="fa-solid fa-diagram-project"></i> Projects</h3>
+              <div id="previewProjects"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewCertificatesSection" style="display:none;">
+              <h3><i class="fa-solid fa-certificate"></i> Certifications</h3>
+              <div id="previewCertificates"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewPublicationsSection" style="display:none;">
+              <h3><i class="fa-solid fa-book-open"></i> Publications</h3>
+              <div id="previewPublications"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewAwardsSection" style="display:none;">
+              <h3><i class="fa-solid fa-award"></i> Awards</h3>
+              <div id="previewAwards"></div>
+            </div>
+
+            <div class="cv-resume-section" id="previewAchievementsSection" style="display:none;">
+              <h3><i class="fa-solid fa-trophy"></i> Achievements</h3>
+              <div id="previewAchievements"></div>
+            </div>
+
+            <div id="previewCustomSections"></div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================================================================ -->
+<!-- CONFIRMATION MODAL                                               -->
+<!-- ================================================================ -->
+<div id="confirmModal" class="cvb-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="cvb-modal">
+    <div class="cvb-modal-icon" id="modalIcon">&#x1F5D1;</div>
+    <h3 id="modalTitle">Delete CV?</h3>
+    <p id="modalDesc">This will permanently delete all your CV data. This action cannot be undone.</p>
+    <div class="cvb-modal-actions">
+      <button class="cvb-btn cvb-btn-ghost" id="modalCancel" type="button">Cancel</button>
+      <button class="cvb-btn cvb-btn-danger" id="modalConfirm" type="button">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- HTML TEMPLATES FOR REPEATER ITEMS                                -->
+<!-- ================================================================ -->
+
+<!-- Education Template -->
+<template id="tpl-education">
+  <div class="cvb-repeater-item" data-type="education">
+    <button type="button" class="cvb-remove-btn" data-remove="education" title="Remove education" aria-label="Remove education entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>School / University *</label>
+        <input type="text" data-field="school" placeholder="ENSA Marrakech" required>
+      </div>
+      <div class="cvb-field">
+        <label>Degree *</label>
+        <input type="text" data-field="degree" placeholder="Engineering Degree" required>
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Field of Study</label>
+      <input type="text" data-field="field" placeholder="Software Engineering">
+    </div>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Start Date</label>
+        <input type="text" data-field="start" placeholder="Sept 2022">
+      </div>
+      <div class="cvb-field">
+        <label>End Date</label>
+        <input type="text" data-field="end" placeholder="Present">
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Description</label>
+      <textarea rows="2" data-field="description" placeholder="Relevant coursework, honors, GPA..."></textarea>
+    </div>
+  </div>
+</template>
+
+<!-- Experience Template -->
+<template id="tpl-experience">
+  <div class="cvb-repeater-item" data-type="experience">
+    <button type="button" class="cvb-remove-btn" data-remove="experience" title="Remove experience" aria-label="Remove experience entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Company *</label>
+        <input type="text" data-field="company" placeholder="TechMaroc" required>
+      </div>
+      <div class="cvb-field">
+        <label>Position *</label>
+        <input type="text" data-field="position" placeholder="Backend Developer Intern" required>
+      </div>
+    </div>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Start Date</label>
+        <input type="text" data-field="start" placeholder="Jul 2026">
+      </div>
+      <div class="cvb-field">
+        <label>End Date</label>
+        <input type="text" data-field="end" placeholder="Present">
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Description</label>
+      <textarea rows="3" data-field="description" placeholder="What did you build, ship, improve? Use bullet points (•) for impact."></textarea>
+    </div>
+  </div>
+</template>
+
+<!-- Volunteer Template -->
+<template id="tpl-volunteer">
+  <div class="cvb-repeater-item" data-type="volunteer">
+    <button type="button" class="cvb-remove-btn" data-remove="volunteer" title="Remove volunteer" aria-label="Remove volunteer entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Organization *</label>
+        <input type="text" data-field="organization" placeholder="ONG Atlas" required>
+      </div>
+      <div class="cvb-field">
+        <label>Role *</label>
+        <input type="text" data-field="role" placeholder="Volunteer Coordinator" required>
+      </div>
+    </div>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Start Date</label>
+        <input type="text" data-field="start" placeholder="Jan 2025">
+      </div>
+      <div class="cvb-field">
+        <label>End Date</label>
+        <input type="text" data-field="end" placeholder="Present">
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Description</label>
+      <textarea rows="2" data-field="description" placeholder="What you did and its impact..."></textarea>
+    </div>
+  </div>
+</template>
+
+<!-- Project Template -->
+<template id="tpl-project">
+  <div class="cvb-repeater-item" data-type="project">
+    <button type="button" class="cvb-remove-btn" data-remove="project" title="Remove project" aria-label="Remove project entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Project Name *</label>
+        <input type="text" data-field="name" placeholder="Opportune" required>
+      </div>
+      <div class="cvb-field">
+        <label>Link (optional)</label>
+        <input type="url" data-field="link" placeholder="github.com/you/opportune">
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Description</label>
+      <textarea rows="3" data-field="description" placeholder="What the project does, tech used, your role..."></textarea>
+    </div>
+  </div>
+</template>
+
+<!-- Certificate Template -->
+<template id="tpl-certificate">
+  <div class="cvb-repeater-item" data-type="certificate">
+    <button type="button" class="cvb-remove-btn" data-remove="certificate" title="Remove certificate" aria-label="Remove certificate entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Certificate Name *</label>
+        <input type="text" data-field="name" placeholder="AWS Certified Developer" required>
+      </div>
+      <div class="cvb-field">
+        <label>Issuing Organization *</label>
+        <input type="text" data-field="issuer" placeholder="Amazon Web Services" required>
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Date</label>
+      <input type="text" data-field="date" placeholder="March 2026">
+    </div>
+  </div>
+</template>
+
+<!-- Publication Template -->
+<template id="tpl-publication">
+  <div class="cvb-repeater-item" data-type="publication">
+    <button type="button" class="cvb-remove-btn" data-remove="publication" title="Remove publication" aria-label="Remove publication entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-field">
+      <label>Title *</label>
+      <input type="text" data-field="title" placeholder="Optimizing REST APIs at Scale" required>
+    </div>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Publisher / Journal</label>
+        <input type="text" data-field="publisher" placeholder="IEEE Xplore">
+      </div>
+      <div class="cvb-field">
+        <label>Date</label>
+        <input type="text" data-field="date" placeholder="June 2026">
+      </div>
+    </div>
+    <div class="cvb-field">
+      <label>Link (optional)</label>
+      <input type="url" data-field="link" placeholder="doi.org/...">
+    </div>
+  </div>
+</template>
+
+<!-- Award Template -->
+<template id="tpl-award">
+  <div class="cvb-repeater-item" data-type="award">
+    <button type="button" class="cvb-remove-btn" data-remove="award" title="Remove award" aria-label="Remove award entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Award Title *</label>
+        <input type="text" data-field="title" placeholder="Best Final Year Project" required>
+      </div>
+      <div class="cvb-field">
+        <label>Organization</label>
+        <input type="text" data-field="organization" placeholder="ENSA Marrakech">
+      </div>
+    </div>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Date</label>
+        <input type="text" data-field="date" placeholder="June 2026">
+      </div>
+      <div class="cvb-field">
+        <label>Description (optional)</label>
+        <input type="text" data-field="description" placeholder="Short context">
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Achievement Template -->
+<template id="tpl-achievement">
+  <div class="cvb-repeater-item" data-type="achievement">
+    <button type="button" class="cvb-remove-btn" data-remove="achievement" title="Remove achievement" aria-label="Remove achievement entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-field">
+      <label>Achievement *</label>
+      <input type="text" data-field="title" placeholder="1st place, National Coding Contest" required>
+    </div>
+    <div class="cvb-field">
+      <label>Details (optional)</label>
+      <textarea rows="2" data-field="description" placeholder="Short context or detail"></textarea>
+    </div>
+  </div>
+</template>
+
+<!-- Reference Template -->
+<template id="tpl-reference">
+  <div class="cvb-repeater-item" data-type="reference">
+    <button type="button" class="cvb-remove-btn" data-remove="reference" title="Remove reference" aria-label="Remove reference entry">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Full Name *</label>
+        <input type="text" data-field="name" placeholder="Mr. Ahmed Bennani" required>
+      </div>
+      <div class="cvb-field">
+        <label>Position</label>
+        <input type="text" data-field="position" placeholder="Engineering Manager">
+      </div>
+    </div>
+    <div class="cvb-grid-2">
+      <div class="cvb-field">
+        <label>Email</label>
+        <input type="email" data-field="email" placeholder="reference@company.com">
+      </div>
+      <div class="cvb-field">
+        <label>Phone</label>
+        <input type="tel" data-field="phone" placeholder="+212 6 00 00 00 00">
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Custom Section Template -->
+<template id="tpl-custom-section">
+  <div class="cvb-repeater-item" data-type="customSection">
+    <button type="button" class="cvb-remove-btn" data-remove="customSection" title="Remove section" aria-label="Remove custom section">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cvb-field">
+      <label>Section Title *</label>
+      <input type="text" data-field="title" placeholder="e.g. Conferences" required>
+    </div>
+    <div class="cvb-field">
+      <label>Content</label>
+      <textarea rows="3" data-field="content" placeholder="Write the content of this section..."></textarea>
+    </div>
+  </div>
+</template>
+
+<!-- Scripts -->
+<script src="cv-builder.js"></script>
+</body>
+</html>

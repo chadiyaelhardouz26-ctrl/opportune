@@ -1,0 +1,1422 @@
+/* ==========================================================================
+   Opportune CV Builder Stylesheet
+   Production-ready | Glassmorphism Design | Dark/Light Mode | Responsive
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS Custom Properties (Design Tokens)
+   ========================================================================== */
+
+:root {
+  /* --- Opportune Brand Colors --- */
+  --brand-dark: #080808;
+  --brand-dark-2: #111111;
+  --brand-dark-3: #1a1a1a;
+  --brand-gold: #D4AF37;
+  --brand-gold-light: #e8c84a;
+  --brand-gold-glow: rgba(212, 175, 55, 0.15);
+  --brand-green: #2d6a4f;
+  --brand-green-light: #4a9970;
+  --brand-green-glow: rgba(45, 106, 79, 0.15);
+
+  /* --- Dark Mode (Default) --- */
+  --bg-primary: #080808;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-card: rgba(17, 17, 17, 0.7);
+  --bg-glass: rgba(26, 26, 26, 0.6);
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --bg-hover: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  --border-focus: rgba(212, 175, 55, 0.5);
+  --border-gold: rgba(212, 175, 55, 0.3);
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --text-muted: #777777;
+  --text-gold: #D4AF37;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 8px 30px rgba(212, 175, 55, 0.15);
+  --backdrop-blur: blur(20px) saturate(1.2);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 100px;
+  --font-main: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* --- Light Mode --- */
+[data-theme="light"] {
+  --bg-primary: #f5f5f0;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f0eb;
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-glass: rgba(255, 255, 255, 0.65);
+  --bg-input: rgba(0, 0, 0, 0.04);
+  --bg-hover: rgba(0, 0, 0, 0.06);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --border-focus: rgba(212, 175, 55, 0.6);
+  --border-gold: rgba(212, 175, 55, 0.4);
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --text-gold: #b8941d;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --shadow-gold: 0 8px 30px rgba(212, 175, 55, 0.12);
+}
+
+/* ==========================================================================
+   2. Reset & Base
+   ========================================================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--brand-gold); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-thumb:hover { background: var(--brand-gold-light); }
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   3. Top Navigation Bar
+   ========================================================================== */
+
+.cvb-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1000;
+  transition: all var(--transition-base);
+}
+
+.cvb-navbar-left,
+.cvb-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cvb-logo {
+  font-family: 'Syne', var(--font-main);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.cvb-logo:hover { opacity: 0.8; }
+
+.cvb-logo span { color: var(--brand-gold); }
+
+.cvb-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-medium);
+}
+
+.cvb-page-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cvb-page-title i { color: var(--brand-gold); }
+
+/* Buttons */
+.cvb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-main);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.cvb-btn-primary {
+  background: linear-gradient(135deg, var(--brand-gold), var(--brand-green));
+  color: #000;
+  box-shadow: var(--shadow-gold);
+}
+
+.cvb-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.35);
+}
+
+.cvb-btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+}
+
+.cvb-btn-ghost:hover {
+  border-color: var(--border-gold);
+  color: var(--brand-gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.cvb-btn-danger {
+  background: transparent;
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.cvb-btn-danger:hover {
+  background: rgba(231, 76, 60, 0.1);
+  border-color: #e74c3c;
+}
+
+.cvb-btn-full { width: 100%; }
+
+.cvb-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  font-size: 1rem;
+}
+
+.cvb-icon-btn:hover {
+  border-color: var(--border-gold);
+  color: var(--brand-gold);
+  background: rgba(212, 175, 55, 0.08);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   4. Toast Notifications
+   ========================================================================== */
+
+.cvb-toast {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  z-index: 9999;
+  transform: translateX(150%);
+  opacity: 0;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+  max-width: 360px;
+  word-wrap: break-word;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-lg);
+}
+
+.cvb-toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.cvb-toast.success {
+  background: rgba(45, 106, 79, 0.9);
+  border: 1px solid rgba(45, 106, 79, 0.5);
+}
+
+.cvb-toast.error {
+  background: rgba(192, 57, 43, 0.9);
+  border: 1px solid rgba(192, 57, 43, 0.5);
+}
+
+.cvb-toast.warning {
+  background: rgba(211, 84, 0, 0.9);
+  border: 1px solid rgba(211, 84, 0, 0.5);
+}
+
+.cvb-toast.info {
+  background: rgba(41, 128, 185, 0.9);
+  border: 1px solid rgba(41, 128, 185, 0.5);
+}
+
+/* ==========================================================================
+   5. Main Layout (Editor + Preview)
+   ========================================================================== */
+
+.cvb-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 64px;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+/* Editor Panel */
+.cvb-editor {
+  padding: 24px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border-subtle);
+}
+
+/* Preview Panel */
+.cvb-preview-wrap {
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cvb-preview-toolbar {
+  height: 48px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.cvb-preview-toolbar span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cvb-preview-toolbar .cvb-live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--brand-green-light);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.cvb-layout-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-input);
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+}
+
+.cvb-layout-toggle button {
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-main);
+}
+
+.cvb-layout-toggle button.active {
+  background: var(--brand-gold);
+  color: #000;
+}
+
+.cvb-preview-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ==========================================================================
+   6. Glassmorphism Cards (Editor)
+   ========================================================================== */
+
+.cvb-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.cvb-card:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.cvb-card-head {
+  width: 100%;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: background var(--transition-fast);
+}
+
+.cvb-card-head:hover {
+  background: var(--bg-hover);
+}
+
+.cvb-card-head span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cvb-card-head i { color: var(--brand-gold); font-size: 0.9rem; }
+
+.cvb-chevron {
+  transition: transform var(--transition-base);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.cvb-card.collapsed .cvb-chevron {
+  transform: rotate(-90deg);
+}
+
+.cvb-card-body {
+  padding: 0 20px 20px;
+  animation: slideDown var(--transition-base);
+}
+
+.cvb-card.collapsed .cvb-card-body {
+  display: none;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bottom actions */
+.cvb-bottom-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 40px;
+}
+
+/* ==========================================================================
+   7. Form Fields
+   ========================================================================== */
+
+.cvb-field { margin-bottom: 16px; }
+
+.cvb-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cvb-field label i { margin-right: 4px; color: var(--brand-gold); }
+
+.cvb-field input[type="text"],
+.cvb-field input[type="email"],
+.cvb-field input[type="url"],
+.cvb-field input[type="tel"],
+.cvb-field input[type="date"],
+.cvb-field select,
+.cvb-field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  outline: none;
+}
+
+.cvb-field input::placeholder,
+.cvb-field textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.cvb-field input:focus,
+.cvb-field select:focus,
+.cvb-field textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.cvb-field input.error,
+.cvb-field select.error,
+.cvb-field textarea.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.cvb-field-error {
+  display: block;
+  font-size: 0.75rem;
+  color: #e74c3c;
+  margin-top: 4px;
+  min-height: 18px;
+}
+
+.cvb-field select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23aaaaaa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.cvb-field select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.cvb-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Grid layouts */
+.cvb-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cvb-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   8. Photo Upload (Drag & Drop)
+   ========================================================================== */
+
+.cvb-photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  position: relative;
+}
+
+.cvb-photo-upload:hover,
+.cvb-photo-upload.drag-over {
+  border-color: var(--brand-gold);
+  background: rgba(212, 175, 55, 0.03);
+}
+
+.cvb-photo-upload.drag-over {
+  transform: scale(1.01);
+  box-shadow: var(--shadow-gold);
+}
+
+.cvb-photo-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-input);
+  border: 2px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--text-muted);
+  transition: all var(--transition-base);
+}
+
+.cvb-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cvb-upload-btn {
+  padding: 8px 18px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-main);
+}
+
+.cvb-upload-btn:hover {
+  border-color: var(--border-gold);
+  color: var(--brand-gold);
+}
+
+.cvb-dropzone-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   9. Tag Inputs (Skills, Languages, etc.)
+   ========================================================================== */
+
+.cvb-tag-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  min-height: 44px;
+  align-items: center;
+}
+
+.cvb-tag-input:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.cvb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cvb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--brand-gold);
+  animation: tagPop var(--transition-base);
+}
+
+@keyframes tagPop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.cvb-tag .cvb-tag-remove {
+  cursor: pointer;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+  line-height: 1;
+}
+
+.cvb-tag .cvb-tag-remove:hover { opacity: 1; }
+
+.cvb-tag-input input {
+  flex: 1;
+  min-width: 120px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  outline: none;
+  padding: 4px;
+}
+
+.cvb-tag-input input::placeholder { color: var(--text-muted); font-style: italic; }
+
+/* ==========================================================================
+   10. Repeater Items (Education, Experience, etc.)
+   ========================================================================== */
+
+.cvb-repeater-list { display: flex; flex-direction: column; gap: 12px; }
+
+.cvb-repeater-item {
+  position: relative;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  padding-top: 36px;
+  animation: itemSlideIn var(--transition-base);
+  transition: border-color var(--transition-base);
+}
+
+@keyframes itemSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cvb-repeater-item:hover { border-color: var(--border-medium); }
+
+.cvb-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  background: transparent;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: all var(--transition-fast);
+  opacity: 0.6;
+}
+
+.cvb-remove-btn:hover {
+  opacity: 1;
+  background: rgba(231, 76, 60, 0.1);
+  transform: scale(1.1);
+}
+
+.cvb-add-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: transparent;
+  border: 1.5px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cvb-add-btn:hover {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold);
+  background: rgba(212, 175, 55, 0.03);
+}
+
+/* Empty state */
+.cvb-empty-state {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.cvb-empty-state i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  display: block;
+  opacity: 0.4;
+}
+
+.cvb-hint-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   11. CV Preview — Resume Page (Two-Column Layout - Default)
+   ========================================================================== */
+
+.cv-resume {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  color: #1a1a1a;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Resume Header --- */
+.cv-resume-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  position: relative;
+}
+
+.cv-resume-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--brand-gold);
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cv-resume-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv-resume-headtext {
+  flex: 1;
+  min-width: 0;
+}
+
+.cv-resume-headtext h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.cv-resume-headtext h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 6px 0 0;
+  color: var(--brand-gold);
+  letter-spacing: 0.5px;
+}
+
+.cv-resume-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cv-resume-contacts span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cv-resume-contacts i { font-size: 0.75rem; color: var(--brand-gold); }
+
+.cv-resume-qrcode {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cv-resume-qrcode img { width: 100%; height: 100%; }
+.cv-resume-qrcode i { color: #ccc; font-size: 2rem; }
+
+/* --- Resume Body (Two Column) --- */
+.cv-resume-body {
+  display: flex;
+  flex: 1;
+  padding: 24px 0;
+}
+
+.cv-resume-col-left {
+  width: 32%;
+  padding: 0 20px 0 32px;
+  border-right: 1px solid #e8e8e8;
+}
+
+.cv-resume-col-right {
+  width: 68%;
+  padding: 0 32px 0 20px;
+}
+
+/* --- Resume Sections --- */
+.cv-resume-section {
+  margin-bottom: 20px;
+  animation: sectionFadeIn var(--transition-base);
+}
+
+@keyframes sectionFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cv-resume-section h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--brand-gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cv-resume-section h3 i { color: var(--brand-gold); font-size: 0.8rem; }
+
+.cv-resume-section p {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.65;
+  text-align: justify;
+}
+
+/* Tags in preview */
+.cv-resume-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cv-resume-tags span {
+  padding: 4px 10px;
+  background: #f0f0eb;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  color: #444;
+  border: 1px solid #e0e0d8;
+}
+
+/* Personal details in preview */
+.cv-resume-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cv-resume-details-list .detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  padding: 3px 0;
+  border-bottom: 1px dotted #e0e0d8;
+}
+
+.cv-resume-details-list .detail-label {
+  color: #777;
+  font-weight: 500;
+}
+
+.cv-resume-details-list .detail-value {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Entries (education, experience, etc.) */
+.cv-entry {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0eb;
+}
+
+.cv-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.cv-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cv-entry-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.cv-entry-subtitle {
+  font-size: 0.85rem;
+  color: #555;
+  font-weight: 500;
+  margin: 1px 0 0;
+}
+
+.cv-entry-meta {
+  font-size: 0.75rem;
+  color: #888;
+  white-space: nowrap;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.cv-entry-meta i { color: var(--brand-gold); margin-right: 2px; }
+
+.cv-entry-description {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.cv-entry-link {
+  font-size: 0.8rem;
+  color: #2d6a4f;
+  margin-top: 3px;
+  word-break: break-all;
+}
+
+/* References */
+.cv-reference {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0eb;
+  font-size: 0.85rem;
+}
+
+.cv-reference:last-child { border-bottom: none; }
+
+.cv-reference-name { font-weight: 700; color: #1a1a2e; }
+.cv-reference-position { color: #666; font-size: 0.8rem; }
+.cv-reference-contact { color: #888; font-size: 0.8rem; }
+
+/* Custom sections */
+.cv-custom-section { margin-bottom: 20px; }
+.cv-custom-section h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--brand-gold);
+}
+
+/* ==========================================================================
+   12. CV Preview — Single Column (Classic) Layout
+   ========================================================================== */
+
+.cv-resume.classic .cv-resume-body {
+  flex-direction: column;
+  padding: 28px 32px;
+}
+
+.cv-resume.classic .cv-resume-col-left,
+.cv-resume.classic .cv-resume-col-right {
+  width: 100%;
+  padding: 0;
+  border: none;
+}
+
+.cv-resume.classic .cv-resume-col-left {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.cv-resume.classic .cv-resume-section h3 {
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   13. Confirmation Modal
+   ========================================================================== */
+
+.cvb-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.cvb-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cvb-modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.95);
+  transition: transform var(--transition-base);
+}
+
+.cvb-modal-overlay.active .cvb-modal {
+  transform: scale(1);
+}
+
+.cvb-modal-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.cvb-modal h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.cvb-modal p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.cvb-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   14. Responsive Design
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1200px) {
+  .cvb-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+
+  .cvb-editor {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    max-height: none;
+    order: 2;
+  }
+
+  .cvb-preview-wrap {
+    order: 1;
+    position: sticky;
+    top: 64px;
+    height: 60vh;
+    z-index: 100;
+  }
+
+  .cv-resume {
+    width: 100%;
+    min-height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cvb-navbar {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .cvb-navbar-left .cvb-divider,
+  .cvb-navbar-left .cvb-page-title {
+    display: none;
+  }
+
+  .cvb-navbar-right {
+    gap: 8px;
+  }
+
+  .cvb-btn span { display: none; }
+  .cvb-btn { padding: 10px 14px; }
+
+  .cvb-layout { margin-top: 56px; }
+
+  .cvb-editor { padding: 16px; }
+
+  .cvb-preview-wrap { top: 56px; height: 50vh; }
+
+  .cvb-preview-scroll { padding: 12px; }
+
+  .cvb-grid-2,
+  .cvb-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-resume-header {
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .cv-resume-headtext h1 { font-size: 1.4rem; }
+  .cv-resume-headtext h2 { font-size: 0.85rem; }
+
+  .cv-resume-qrcode {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cv-resume-body {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .cv-resume-col-left,
+  .cv-resume-col-right {
+    width: 100%;
+    padding: 0;
+    border: none;
+  }
+
+  .cv-resume { font-size: 9pt; }
+
+  .cv-toast {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+    top: 68px;
+  }
+}
+
+/* ==========================================================================
+   15. Print Styles (PDF Export)
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .cv-resume,
+  .cv-resume * {
+    visibility: visible;
+  }
+
+  .cv-resume {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm;
+    min-height: 297mm;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    page-break-inside: avoid;
+  }
+
+  .cv-resume-header {
+    page-break-inside: avoid;
+  }
+
+  .cv-entry {
+    page-break-inside: avoid;
+  }
+
+  .cv-resume-section {
+    page-break-inside: avoid;
+  }
+}
+
+/* html2pdf specific */
+.pdf-export .cv-resume {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* ==========================================================================
+   16. Loading & Auto-Save Indicator
+   ========================================================================== */
+
+.cvb-save-indicator {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 8px 16px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 9998;
+  transition: opacity var(--transition-base);
+}
+
+.cvb-save-indicator.saving { color: var(--brand-gold); }
+
+.cvb-save-indicator.saved { color: var(--brand-green-light); }
+
+.cvb-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-medium);
+  border-top-color: var(--brand-gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   17. Utility Classes
+   ========================================================================== */
+
+.cvb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.cvb-hidden { display: none !important; }
+
+.cvb-fade-in {
+  animation: fadeIn var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Focus trap for accessibility */
+.cvb-field input:focus-visible,
+.cvb-field select:focus-visible,
+.cvb-field textarea:focus-visible,
+.cvb-btn:focus-visible,
+.cvb-card-head:focus-visible {
+  outline: 2px solid var(--brand-gold);
+  outline-offset: 2px;
+}

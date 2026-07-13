@@ -1,0 +1,273 @@
+<!-- Déclaration HTML5 -->
+<!-- إعلان HTML5 -->
+<!DOCTYPE html>
+
+<!-- Langue anglaise, sens gauche à droite -->
+<!-- اللغة الإنجليزية، الاتجاه من اليسار لليمين -->
+<html lang="en" dir="ltr" data-theme="dark">
+
+<head>
+
+  <!-- Encodage des caractères -->
+  <!-- ترميز الأحرف -->
+  <meta charset="UTF-8">
+
+  <!-- Adaptation aux écrans mobiles -->
+  <!-- التكيف مع شاشات الهاتف -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Titre de la page -->
+  <!-- عنوان الصفحة -->
+  <title>Opportune — Create your account</title>
+
+  <!-- Lien vers la feuille de style -->
+  <!-- رابط ملف التصميم -->
+  <link rel="stylesheet" href="opportune.css">
+
+  <!-- Bibliothèque des drapeaux -->
+  <!-- مكتبة الأعلام -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+
+  <!-- Polices Google -->
+  <!-- خطوط Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+<!-- Barre de navigation — identique à la page principale -->
+  <!-- شريط التنقل — نفس الصفحة الرئيسية -->
+  <nav>
+
+    <!-- Logo — redirige vers la page principale -->
+    <!-- الشعار — يوجه للصفحة الرئيسية -->
+    <div class="logo">
+      <a href="opportune.html">Oppor<span>tune</span></a>
+    </div>
+
+    <!-- Liens de navigation -->
+    <!-- روابط التنقل -->
+    <ul class="nav-links">
+      <li><a href="opportune.html#features">Features</a></li>
+      <li><a href="opportune.html#how">How it works</a></li>
+      <li><a href="opportune.html#regions">Regions</a></li>
+    </ul>
+
+    <!-- Actions -->
+    <!-- الإجراءات -->
+    <div class="nav-actions">
+
+      <!-- Sélecteur de langue -->
+      <!-- مبدل اللغة -->
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="ar">Ar</button>
+        <button class="lang-btn" data-lang="fr">Fr</button>
+        <button class="lang-btn active" data-lang="en">En</button>
+      </div>
+
+      <!-- Lien vers la page de connexion -->
+      <!-- رابط لصفحة الدخول -->
+      <button class="btn-nav" onclick="window.location.href='login.html'">Login</button>
+
+    </div>
+
+  </nav>
+  <!-- Section principale — formulaire d'inscription -->
+  <!-- القسم الرئيسي — نموذج التسجيل -->
+  <section id="register">
+
+    <!-- Effet lumineux arrière-plan -->
+    <!-- تأثير التوهج في الخلفية -->
+    <div class="glow-gold"></div>
+    <div class="glow-green"></div>
+
+    <!-- Conteneur du formulaire -->
+    <!-- حاوية النموذج -->
+    <div class="register-container">
+
+      <!-- En-tête du formulaire -->
+      <!-- رأس النموذج -->
+      <div class="register-header">
+        <span class="badge">⚡ Free forever for students</span>
+        <h1>Create your <span>account</span></h1>
+        <p>Fill in your details once — we do the rest</p>
+      </div>
+
+      <!-- Formulaire d'inscription -->
+      <!-- نموذج التسجيل -->
+      <div class="register-form">
+
+        <!-- Ligne 1 — Prénom et Nom -->
+        <!-- السطر 1 — الاسم الأول والأخير -->
+        <div class="form-row">
+
+          <!-- Champ prénom -->
+          <!-- حقل الاسم الأول -->
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" >
+          </div>
+
+          <!-- Champ nom -->
+          <!-- حقل الاسم الأخير -->
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" >
+          </div>
+
+        </div>
+
+        <!-- Ligne 2 — Email -->
+        <!-- السطر 2 — البريد الإلكتروني -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" >
+        </div>
+
+        <!-- Ligne 3 — Mot de passe -->
+        <!-- السطر 3 — كلمة المرور -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" >
+        </div>
+
+        <!-- Ligne 4 — Ville et Niveau d'études -->
+        <!-- السطر 4 — المدينة والمستوى الدراسي -->
+        <div class="form-row">
+            <!-- Champ pays avec autocomplétion -->
+            <!-- حقل الدولة مع الاقتراحات التلقائية -->
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" placeholder="Type your country..." autocomplete="off">
+            <div id="country-suggestions" class="suggestions-list"></div>
+          </div>
+
+          
+          <!-- Champ ville avec autocomplétion -->
+          <!-- حقل المدينة مع الاقتراحات التلقائية -->
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="Type your city..." autocomplete="off">
+            <div id="city-suggestions" class="suggestions-list"></div>
+          </div>
+
+          <!-- Champ niveau d'études -->
+          <!-- حقل المستوى الدراسي -->
+          <div class="form-group">
+            <label for="level">Study Level</label>
+            <!-- Liste déroulante — permet de choisir parmi des options -->
+            <!-- قائمة منسدلة — تسمح باختيار من بين خيارات -->
+            <select id="level">
+
+                <!-- Niveaux baccalauréat -->
+                <!-- مستوى البكالوريا -->
+                <option value="">Select your level</option>
+                <option value="bac">Baccalauréat</option>
+
+                <!-- Bac+1 et Bac+2 -->
+                <!-- السنة الأولى والثانية بعد الباك -->
+                <option value="bac1">Bac+1</option>
+                <option value="bts">Bac+2 — BTS</option>
+                <option value="dut">Bac+2 — DUT</option>
+                <option value="deust">Bac+2 — DEUST</option>
+                <option value="tsdi">Bac+2 — TSDI</option>
+                <option value="tsi">Bac+2 — TSI</option>
+                <option value="tc">Bac+2 — Technicien Spécialisé Commerce</option>
+                <option value="tcc">Bac+2 — Technicien Spécialisé Comptabilité</option>
+                <option value="cpge">Bac+2 — CPGE (Classes Préparatoires)</option>
+
+                <!-- Bac+3 -->
+                <!-- السنة الثالثة -->
+                <option value="licence">Bac+3 — Licence</option>
+                <option value="bachelor">Bac+3 — Bachelor</option>
+                <option value="licence_pro">Bac+3 — Licence Professionnelle</option>
+
+                <!-- Bac+4 et Bac+5 -->
+                <!-- السنة الرابعة والخامسة -->
+                <option value="master1">Bac+4 — Master 1</option>
+                <option value="master2">Bac+5 — Master 2</option>
+                <option value="master_pro">Bac+5 — Master Professionnel</option>
+                <option value="ingenieur">Bac+5 — Ingénieur</option>
+                <option value="grande_ecole">Bac+5 — Grande École</option>
+                <option value="mba">Bac+5 — MBA</option>
+
+                <!-- Bac+6 et plus -->
+                <!-- السنة السادسة وما فوق -->
+                <option value="bac6">Bac+6</option>
+                <option value="bac7">Bac+7</option>
+                <option value="doctorat">Bac+8 — Doctorat (PhD)</option>
+                <option value="hdr">Bac+10 — HDR</option>
+
+                <!-- Formations professionnelles -->
+                <!-- التكوينات المهنية -->
+                <option value="ofppt">Formation OFPPT</option>
+                <option value="formation_pro">Formation Professionnelle</option>
+                <option value="formation_tech">Formation Technique</option>
+                <option value="formation_art">Formation Artistique</option>
+                <option value="formation_lang">Formation Linguistique</option>
+                <option value="bootcamp">Bootcamp / Formation Intensive</option>
+                <option value="certification">Certification Professionnelle</option>
+
+                <!-- Formations en ligne -->
+                <!-- التكوينات عبر الإنترنت -->
+                <option value="mooc">MOOC / Coursera / edX</option>
+                <option value="udemy">Udemy / Skillshare</option>
+                <option value="youtube">Autodidacte / YouTube</option>
+
+                <!-- Autres -->
+                <!-- أخرى -->
+                <option value="militaire">Formation Militaire</option>
+                <option value="religieux">Formation Religieuse</option>
+                <option value="autre">Autre</option>
+
+                </select>
+                <!-- Champ spécialité — apparaît après le choix du niveau -->
+                <!-- حقل التخصص — يظهر بعد اختيار المستوى -->
+                    <div class="form-group" id="speciality-group" style="display:none;">
+                        <label for="speciality">Field / Speciality</label>
+                        <input type="text" id="speciality" placeholder="Type your speciality..." autocomplete="off">
+                    <div id="speciality-suggestions" class="suggestions-list"></div>
+                </div>
+          </div>
+
+        </div>
+
+        <!-- Ligne 5 — Objectif -->
+        <!-- السطر 5 — الهدف -->
+        <div class="form-group">
+          <label>I am looking for</label>
+          <!-- Boutons de sélection multiple -->
+          <!-- أزرار الاختيار المتعدد -->
+          <div class="goal-btns">
+            <button class="goal-btn" data-goal="job">💼 Job</button>
+            <button class="goal-btn" data-goal="internship">🎓 Internship</button>
+            <button class="goal-btn" data-goal="volunteer">🌱 Volunteer</button>
+            <button class="goal-btn" data-goal="remote">💻 Remote</button>
+          </div>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <!-- زر الإرسال -->
+        <button class="btn-primary btn-full" id="registerBtn" type="button">
+          Create my account ⚡
+        </button>
+
+        <!-- Lien vers la page de connexion -->
+        <!-- رابط لصفحة الدخول -->
+        <p class="login-link">
+          Already have an account? 
+          <a href="login.html">Login here</a>
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Lien vers le fichier JavaScript -->
+  <!-- رابط ملف JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>

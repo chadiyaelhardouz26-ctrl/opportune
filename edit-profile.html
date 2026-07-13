@@ -1,0 +1,134 @@
+<!-- Déclaration HTML5 -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opportune — Edit Profile</title>
+  <link rel="stylesheet" href="opportune.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">
+      <a href="opportune.html">Oppor<span>tune</span></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html#opportunities">Opportunities</a></li>
+      <li><a href="cv_builder.html">My CV</a></li>
+      <li><a href="dashboard.html#applications">Applications</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-nav" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+    </div>
+  </nav>
+
+  <section id="register">
+
+    <div class="glow-gold"></div>
+    <div class="glow-green"></div>
+
+    <div class="register-container">
+
+      <div class="register-header">
+        <span class="badge">👤 Your profile</span>
+        <h1>Edit your <span>profile</span></h1>
+        <p>Keep your information up to date to get better matches</p>
+      </div>
+
+      <div class="register-form">
+
+        <div id="editProfileMessage" style="display:none; margin-bottom: 16px; text-align:center;"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" placeholder="Type your country..." autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="Type your city..." autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="level">Study Level</label>
+            <select id="level">
+              <option value="">Select your level</option>
+              <option value="bac">Baccalauréat</option>
+              <option value="bac1">Bac+1</option>
+              <option value="bts">Bac+2 — BTS</option>
+              <option value="dut">Bac+2 — DUT</option>
+              <option value="deust">Bac+2 — DEUST</option>
+              <option value="tsdi">Bac+2 — TSDI</option>
+              <option value="tsi">Bac+2 — TSI</option>
+              <option value="tc">Bac+2 — Technicien Spécialisé Commerce</option>
+              <option value="tcc">Bac+2 — Technicien Spécialisé Comptabilité</option>
+              <option value="cpge">Bac+2 — CPGE (Classes Préparatoires)</option>
+              <option value="licence">Bac+3 — Licence</option>
+              <option value="bachelor">Bac+3 — Bachelor</option>
+              <option value="licence_pro">Bac+3 — Licence Professionnelle</option>
+              <option value="master1">Bac+4 — Master 1</option>
+              <option value="master2">Bac+5 — Master 2</option>
+              <option value="master_pro">Bac+5 — Master Professionnel</option>
+              <option value="ingenieur">Bac+5 — Ingénieur</option>
+              <option value="grande_ecole">Bac+5 — Grande École</option>
+              <option value="mba">Bac+5 — MBA</option>
+              <option value="bac6">Bac+6</option>
+              <option value="bac7">Bac+7</option>
+              <option value="doctorat">Bac+8 — Doctorat (PhD)</option>
+              <option value="hdr">Bac+10 — HDR</option>
+              <option value="ofppt">Formation OFPPT</option>
+              <option value="formation_pro">Formation Professionnelle</option>
+              <option value="formation_tech">Formation Technique</option>
+              <option value="formation_art">Formation Artistique</option>
+              <option value="formation_lang">Formation Linguistique</option>
+              <option value="bootcamp">Bootcamp / Formation Intensive</option>
+              <option value="certification">Certification Professionnelle</option>
+              <option value="mooc">MOOC / Coursera / edX</option>
+              <option value="udemy">Udemy / Skillshare</option>
+              <option value="youtube">Autodidacte / YouTube</option>
+              <option value="militaire">Formation Militaire</option>
+              <option value="religieux">Formation Religieuse</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="speciality">Field / Speciality</label>
+            <input type="text" id="speciality" placeholder="Type your speciality..." autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>I am looking for</label>
+          <div class="goal-btns">
+            <button type="button" class="goal-btn" data-goal="job">💼 Job</button>
+            <button type="button" class="goal-btn" data-goal="internship">🎓 Internship</button>
+            <button type="button" class="goal-btn" data-goal="volunteer">🌱 Volunteer</button>
+            <button type="button" class="goal-btn" data-goal="remote">💻 Remote</button>
+          </div>
+        </div>
+
+        <button class="btn-primary btn-full" id="saveProfileBtn" type="button">
+          Save changes ⚡
+        </button>
+
+        <p class="login-link">
+          <a href="dashboard.html">Cancel and go back</a>
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <script src="edit-profile.js"></script>
+
+</body>
+</html>

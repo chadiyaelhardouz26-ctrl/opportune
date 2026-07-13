@@ -1,0 +1,369 @@
+<!-- Déclare au navigateur que ce fichier est en HTML5 -->
+<!DOCTYPE html>
+
+
+<!-- Début de la page _ lang définit la langue -->
+<html lang="en" dir="ltr" data-theme="dark">
+
+
+<!-- section dd'information -invisible au visiteur ,utilisée par le navigateur -->
+<head>
+
+
+    <!-- Définit l,encodage des caractères - pour afficher l'arabe ,le français et l'anglais correctement  -->
+    <meta charset="UTF-8">
+
+
+    <!-- Adapte la page aux écrans moboles et tablettes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Titre de la page affiché dans l'onglet du navigateur -->
+    <title>Opportune</title>
+    <link rel="stylesheet" href="opportune.css">
+    <!-- script.js is loaded at the end of body -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+
+</head>
+<!-- Début du contenu visible - tout ce que le visiteur voit est ici -->
+<body>
+
+
+    <!-- Barre de navigation sépurieure - reste fix lors du défilement -->
+     <nav>
+
+
+        <!-- Logo - nom du site à droite -->
+         <div class="logo">Oppor<span>tune</span></div>
+
+
+         <!-- Liens de navigation entre les sections de la page -->
+          <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#regions">Regions</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="ar">Arabe</button>
+                <button class="lang-btn" data-lang="fr">Français</button>
+                <button class="lang-btn" data-lang="en">Englais</button>
+            </div>
+          </div>
+
+
+          <!-- Buttton d'inscription -->
+           <button class="btn-nav" onclick="window.location.href='register.html'">Get started</button>
+     </nav>
+     <!-- Section principale - première chose visible au chargement de la page -->
+     <section id="hero">
+
+        <!-- Effet lumineux en arrièr-plan - visuel uniquement, sans contenu -->
+        <div class="glow-gold"></div>
+        <div class="glow-green"></div>
+
+        <!-- Badge au-dessus du titre -->
+        <span class="badge">Free for students 100% &#9889;</span>
+
+        <!-- Titre principal -->
+        <h1>Your opportunity <span>is waiting</span></h1>
+
+        <!-- Slogan du site -->
+        <p class="tagline">We search every day in morocco, the Arab world and Europe - you just wait for the reply</p>
+
+        <!-- Deux boutons d'action -->
+        <div class="btn-row">
+
+            <!-- Bouton principal - redirige vers l'inscription -->
+            <button class="btn-primary" onclick="window.location.href='register.html'">Start for free</button>
+
+            <!--  Bouton principal - redirige vers la section fonctionnement -->
+            <button class="btn-secondary" onclick="document.querySelector('#chow').scrollIntoView({behavior:'smooth'})">How it works?</button>
+        </div>
+
+     </section>
+
+     <!-- قسم الإحصائيات — أرقام تثبت مصداقية الموقع للزائر -->
+     <!-- Section statistiques — chiffres qui prouvent la crédibilité du site -->
+     <section id="stats">
+
+        <!-- إحصائية 1 -->
+        <!-- Statistique 1 -->
+        <div class="stat-card">
+
+            <!-- الرقم الكبير — كيتحرك بـ JavaScript من 0 للرقم الحقيقي -->
+            <!-- Grand chiffre — animé par JavaScript de 0 au chiffre réel -->
+            <div class="stat-num" data-target="1200">0</div>
+
+            <!-- وصف الرقم -->
+            <!-- Description du chiffre -->
+            <div class="stat-label" data-key="stat1_label">Opportunities daily</div>
+        </div>
+
+        <!-- Statistique 2 -->
+        <div class="stat-card">
+            <div class="stat-num" data-target="500">0</div>
+            <div class="stat-label" data-key="stat2_label">Students benefited</div>
+
+        </div>
+
+        <!-- Statistique 3 -->
+        <div class="stat-card">
+            <div class="stat-num" data-target="30">0</div>
+            <div class="stat-label" data-key="stat3_label">Countries covered</div>
+
+        </div>
+
+        <!-- Statistique 4 -->
+        <div class="stat-card">
+            <div class="stat-num" data-target="98">0</div>
+            <div class="stat-label" data-key="stat4_label">% Satisfaction rate</div>
+
+        </div>
+     </section>
+     <!-- قسم المميزات — يشرح للزائر ما يقدمه الموقع -->
+  <!-- Section fonctionnalités — explique au visiteur ce que le site offre -->
+  <section id="features">
+
+    <!-- عنوان القسم -->
+    <!-- Titre de la section -->
+    <h2>Why <span>Opportune</span>؟</h2>
+    <p class="section-sub">Everyting you need in one place</p>
+
+    <!-- شبكة المميزات -->
+    <!-- Grille des fonctionnalités -->
+    <div class="features-grid">
+
+      <!-- ميزة 1 — البحث التلقائي -->
+      <!-- Fonctionnalité 1 — Recherche automatique -->
+      <div class="feature-card">
+        <!-- أيقونة الميزة -->
+        <!-- Icône de la fonctionnalité -->
+        <div class="feature-icon">🔍</div>
+        <h3 data-key="feat1_title">Daily automatic search</h3>
+        <p data-key="feat1_desc">We search hundreds of sites every day without you</p>
+      </div>
+
+      <!-- ميزة 2 — CV الذكي -->
+      <!-- Fonctionnalité 2 — CV intelligent -->
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3 data-key="feat2_title">Smart custom CV</h3>
+        <p data-key="feat2_desc">Your CV adapts automatically to each opportunity</p>
+      </div>
+
+      <!-- ميزة 3 — نصائح التحسين -->
+      <!-- Fonctionnalité 3 — Conseils d'amélioration -->
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3 data-key="feat3_title">CV improvement tips</h3>
+        <p data-key="feat3_desc">Smart suggestions to strengthen your professional profile</p>
+      </div>
+
+      <!-- ميزة 4 — التغطية الجغرافية -->
+      <!-- Fonctionnalité 4 — Couverture géographique -->
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3 data-key="feat4_title">Global coverage</h3>
+        <p data-key="feat4_desc">Morocco, Arab world, Europe and Remote opportunities</p>
+      </div>
+
+      <!-- ميزة 5 — الإشعارات -->
+      <!-- Fonctionnalité 5 — Notifications -->
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3 data-key="feat5_title">Instant notifications</h3>
+        <p data-key="feat5_desc">We notify you immediately when a suitable opportunity is found</p>
+      </div>
+
+      <!-- ميزة 6 — مجاني -->
+      <!-- Fonctionnalité 6 — Gratuit -->
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3 data-key="feat6_title">Free for students</h3>
+        <p data-key="feat6_desc">100% free - because your future should not be paid for</p>
+      </div>
+    </div>
+  </section>
+  <!-- Section expliquant le fonctionnement du site en 3 étapes -->
+  <!-- قسم يشرح كيف يعمل الموقع في 3 خطوات -->
+  <section id="how">
+
+    <!-- Titre de la section -->
+    <!-- عنوان القسم -->
+    <h2>How does <span>Opportune</span> work?</h2>
+
+    <!-- Sous-titre de la section -->
+    <!-- عنوان فرعي للقسم -->
+    <p class="section-sub">3 simple steps — that's all</p>
+
+    <!-- Grille contenant les 3 étapes -->
+    <!-- شبكة تحتوي على 3 خطوات -->
+    <div class="steps-grid">
+
+      <!-- Étape 1 — Créer le profil -->
+      <!-- الخطوة 1 — إنشاء الملف الشخصي -->
+      <div class="step-card">
+
+        <!-- Numéro de l'étape — utilisé pour le style visuel en CSS -->
+        <!-- رقم الخطوة — كيستعمل للتصميم البصري في CSS -->
+        <div class="step-number">01</div>
+        <div class="step-icon">👤</div>
+        <h3  data-key="step1_title">Create your profile</h3>
+        <p data-key="step1_desc">Fill in your skills, languages and goals — only once</p>
+      </div>
+
+      <!-- Étape 2 — Recherche automatique -->
+      <!-- الخطوة 2 — البحث التلقائي -->
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-icon">🤖</div>
+        <h3 data-key="step2_title">We search for you</h3>
+        <p data-key="step2_desc">Opportune searches hundreds of sites every day and finds the best matches</p>
+      </div>
+
+      <!-- Étape 3 — Recevoir les réponses -->
+      <!-- الخطوة 3 — استقبال الردود -->
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-icon">📩</div>
+        <h3 data-key="step3_title">Wait for the reply</h3>
+        <p data-key="step3_desc">We send your custom CV automatically — you just receive the responses</p>
+      </div>
+    </div>
+  </section>
+  <!-- Section des régions couvertes par le site -->
+  <!-- قسم المناطق المغطاة من طرف الموقع -->
+  <section id="regions">
+
+    <!-- Titre de la section -->
+    <!-- عنوان القسم -->
+    <h2>Where do we <span>search</span>?</h2>
+
+    <!-- Sous-titre de la section -->
+    <!-- عنوان فرعي للقسم -->
+    <p class="section-sub">Local and international opportunities in one place</p>
+
+    <!-- Grille contenant les cartes des régions -->
+    <!-- شبكة تحتوي على بطاقات المناطق -->
+    <div class="regions-grid">
+
+      <!-- Région 1 — Maroc -->
+      <!-- المنطقة 1 — المغرب -->
+      <div class="region-card">
+        <!-- Drapeau de la région -->
+        <!-- علم المنطقة -->
+        <div class="region-flag"><span class="fi fi-ma"></span></div>
+        <h3 data-key="reg1_title">Morocco</h3>
+        <p data-key="reg1_desc">All cities — jobs, internships and volunteering</p>
+      </div>
+
+      <!-- Région 2 — Monde arabe -->
+      <!-- المنطقة 2 — العالم العربي -->
+      <div class="region-card">
+        <div class="region-flag">🌍</div>
+        <h3 data-key="reg2_title">Arab World</h3>
+        <p data-key="reg2_desc">All Arab countries including Gulf states</p>
+      </div>
+
+      <!-- Région 3 — Europe -->
+      <!-- المنطقة 3 — أوروبا -->
+      <div class="region-card">
+        <div class="region-flag"><span class="fi fi-eu"></span></div>
+        <h3 data-key="reg3_title">Europe</h3>
+        <p data-key="reg3_desc">France, Spain, Germany, Belgium and more</p>
+      </div>
+
+      <!-- Région 4 — Amérique du Nord -->
+      <!-- المنطقة 4 — أمريكا الشمالية -->
+      <div class="region-card">
+        <div class="region-flag"><span class="fi fi-ca"></span></div>
+        <h3 data-key="reg4_title">North America</h3>
+        <p data-key="reg4_desc">Canada and United States — jobs and scholarships</p>
+      </div>
+
+      <!-- Région 5 — Remote -->
+      <!-- المنطقة 5 — عن بعد -->
+      <div class="region-card">
+        <!-- Classe spéciale pour mettre en valeur Remote -->
+        <!-- كلاس خاص لإبراز Remote -->
+        <div class="region-flag">💻</div>
+        <h3 data-key="reg5_title">Remote</h3>
+        <p data-key="reg5_desc">Work from anywhere in the world — no borders</p>
+      </div>
+
+    </div>
+
+  </section>
+  <!-- Pied de page — dernière section du site -->
+  <!-- تذييل الصفحة — آخر قسم في الموقع -->
+  <footer>
+
+    <!-- Conteneur principal du footer -->
+    <!-- الحاوية الرئيسية للتذييل -->
+    <div class="footer-grid">
+
+      <!-- Colonne 1 — Logo et description -->
+      <!-- العمود 1 — الشعار والوصف -->
+      <div class="footer-col">
+        <!-- Logo du site -->
+        <!-- شعار الموقع -->
+        <div class="logo">Oppor<span>tune</span></div>
+        <!-- Courte description du site -->
+        <!-- وصف قصير للموقع -->
+        <p>Your opportunity is waiting — we search, you succeed</p>
+      </div>
+
+      <!-- Colonne 2 — Liens rapides -->
+      <!-- العمود 2 — روابط سريعة -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <!-- Lien vers la section fonctionnalités -->
+          <!-- رابط لقسم المميزات -->
+          <li><a href="#features" data-key="nav_features">Features</a></li>
+          <!-- Lien vers la section fonctionnement -->
+          <!-- رابط لقسم كيف يعمل -->
+          <li><a href="#how" data-key="nav_how">How it works</a></li>
+          <!-- Lien vers la section régions -->
+          <!-- رابط لقسم المناطق -->
+          <li><a href="#regions" data-key="nav_regions">Regions</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 3 — Contact -->
+      <!-- العمود 3 — التواصل -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <!-- Adresse email de contact -->
+          <!-- البريد الإلكتروني للتواصل -->
+          <li><a href="mailto:contact@opportune.ma">contact@opportune.ma</a></li>
+          <!-- Lien Instagram -->
+          <!-- رابط إنستغرام -->
+          <li><a href="#">Instagram</a></li>
+          <!-- Lien LinkedIn -->
+          <!-- رابط لينكدإن -->
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Ligne de copyright en bas du footer -->
+    <!-- سطر حقوق النشر في أسفل التذييل -->
+    <div class="footer-bottom">
+      <!-- Symbole copyright — 2024 = année de création -->
+      <!-- رمز حقوق النشر — 2024 = سنة الإنشاء -->
+      <p>© 2024 Opportune — All rights reserved</p>
+    </div>
+
+  </footer>
+
+  <!-- Lien vers le fichier JavaScript — toujours à la fin du body -->
+  <!-- رابط لملف JavaScript — دائماً في آخر الـ body -->
+  <!-- كيتحمل بعد HTML باش لا يبطئ تحميل الصفحة -->
+  <script src="script.js"></script>
+</body>
+</html>
